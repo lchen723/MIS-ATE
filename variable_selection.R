@@ -15,10 +15,10 @@ PS = NULL
 EAST = NULL
 Ttrue = NULL
 SEL = NULL    ## PS1 + M1
-n = 600       # sample size    ## warnings would happen if n is "small" enough, e.g., n = 100
+n = 600       # sample size    ## n can be changed to 800
 m = 1000       # num of repitition of simulation
-px = 3      # dim of parameters
-pz = 3
+px = 3      # dim of parameters ## px can be changed to 4
+pz = 3                          ## pz can be changed to 4
 p = px + pz
  
 #### process of covariate
@@ -57,7 +57,7 @@ Z = mvrnorm(n, mu_Z, Sigma_Z, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
 
  
  
-g_link = sin(X[,1]) + exp(Z[,1])
+g_link = sin(X[,1]) + exp(Z[,1])  # the first and the (px+1)th confounders are informative
 e = 1/(1+exp(-g_link))         # pass through an inv-logit function
 #e =  1 - exp(-exp(g_link))     # complement log-log model form
 T = (e>0.7)*1
