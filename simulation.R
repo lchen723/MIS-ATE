@@ -24,26 +24,20 @@ p = px + pz
 
 #### process of covariate
 
-mu_X = rep(0,px)
-mu_Z = rep(0,pz)
+mu = rep(0,p)
 
-Sigma_X = matrix(0,px,px)
-Sigma_Z = matrix(0,pz,pz)
-
-sigma_X = 1
-sigma_Z = 1
-Sigma_e = diag(0.2,px)
-rho_X = 0.5
-rho_Z = 0.5
-
+ 
+Sigma = matrix(0,p,p)
+rho = 0.5
+ 
 for(i in 1:px)
-{
-for(j in 1:pz)
-{
-Sigma_X[i,j] = sigma_X * rho_X^(abs(i-j))
-Sigma_Z[i,j] = sigma_Z * rho_Z^(abs(i-j))
-}
-}
+ {
+ for(j in 1:pz)
+ {
+ Sigma[i,j] = rho^(abs(i-j))
+ }
+ }
+
 
 for(MIS in c(0.75,0.8,0.85,0.9,0.95)) {
 
@@ -51,9 +45,9 @@ for(time in 1:m) # repitition starts
 {
 set.seed(time)
 
-X = mvrnorm(n, mu_X, Sigma_X, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
-
-Z = mvrnorm(n, mu_Z, Sigma_Z, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+W = mvrnorm(n, mu, Sigma, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+X = W[,1:px]
+Z = W[,(px+1):p]
 
 
 
@@ -213,26 +207,19 @@ p = px + pz
 
 #### process of covariate
 
-mu_X = rep(0,px)
-mu_Z = rep(0,pz)
+mu = rep(0,p)
 
-Sigma_X = matrix(0,px,px)
-Sigma_Z = matrix(0,pz,pz)
-
-sigma_X = 1
-sigma_Z = 1
-Sigma_e = diag(0.2,px)
-rho_X = 0.5
-rho_Z = 0.5
-
+ 
+Sigma = matrix(0,p,p)
+rho = 0.5
+ 
 for(i in 1:px)
-{
-for(j in 1:pz)
-{
-Sigma_X[i,j] = sigma_X * rho_X^(abs(i-j))
-Sigma_Z[i,j] = sigma_Z * rho_Z^(abs(i-j))
-}
-}
+ {
+ for(j in 1:pz)
+ {
+ Sigma[i,j] = rho^(abs(i-j))
+ }
+ }
 
 for(MIS in c(0.75,0.8,0.85,0.9,0.95)) {
 
@@ -240,9 +227,9 @@ for(time in 1:m) # repitition starts
 {
 set.seed(time)
 
-X = mvrnorm(n, mu_X, Sigma_X, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
-
-Z = mvrnorm(n, mu_Z, Sigma_Z, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+W = mvrnorm(n, mu, Sigma, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+X = W[,1:px]
+Z = W[,(px+1):p]
 
 
 
